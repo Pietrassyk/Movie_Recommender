@@ -62,7 +62,7 @@ def show_recommendations():
     temp_json = request.cookies.get("temp_json")
     spark_path = Config.spark_path
     spark_app = Config.spark_app_path
-    run_spark_app = subprocess.Popen(["sudo","./bin/spark-submit", spark_app , temp_json] , cwd = spark_path, stdout = PIPE)
+    run_spark_app = subprocess.Popen(["./bin/spark-submit", spark_app , temp_json] , cwd = spark_path, stdout = PIPE)
     recommendations_json = json.loads(run_spark_app.stdout.read())
     #DEBUG
     #with open("temp.json","w") as f:
