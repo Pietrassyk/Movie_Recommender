@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Movie Selection</title>
+  <meta charset="utf-8">
+  <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="../static/css/skel-noscript.css">
+<!--[if lte IE 8]>
+<script src="css/ie/html5shiv.js"></script>
+<![endif]-->
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/jquery.poptrox-2.2.js"></script>
+<script src="../static/js/skel.min.js"></script>
+<script src="../static/js/init.js"></script>
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="css/ie/v8.css">
+<![endif]-->
+</head>
+<body>
+  <section id="header">
+    <header>
+      <h1>Movie Recommender</h1>
+      <p>By Tino Pietrassyk</p>
+    </header>
+    <footer> <a href="#banner" class="button style2 scrolly">Rate Movies</a> </footer>
+  </section>
+  <section id="banner">
+  	    <header>
+      <h2 id="rating">Rate the following Movie:</h2>
+      <br></br>
+      <p>{{title}}</p>
+    </header>
+<img src="{{cover_url}}" height="400" width="250" align="center">
+<form action = "/Movie" method="POST">
+	<button name="rating" type="submit" value="1" class="button style2 scroll">1</button>
+	<button name="rating" type="submit" value="2" class="button style2 scroll">2</button>
+	<button name="rating" type="submit" value="3" class="button style2 scroll">3</button>
+	<button name="rating" type="submit" value="4" class="button style2 scroll">4</button>
+	<button name="rating" type="submit" value="5" class="button style2 scroll">5</button>
+	<button name="rating" type="submit" value="n" class="button style2 scroll">-></button>
+</form>
+</section>
+  <section id="footer">
+    <ul class="icons">
+      <!--<li><a href="https://medium.com/@pietrassyk" class="icon icon-medium solo"><span>Medium</span></a></li>
+      <li><a href="mailto:pietrassyk@gmail.com" class="icon icon-gmail solo"><span>Gmail</span></a></li>-->
+      <li><a href="https://github.com/pietrassyk/" target="_blank" class="icon icon-github solo"><span>Github</span></a></li>
+      <li><a href="https://www.linkedin.com/in/tinopietrassyk/" target="_blank" class="icon icon-linkedin solo"><span>LinkedIn</span></a></li>
+    </ul>
+    <div class="copyright">
+      <ul class="menu">
+        <li>&copy; Tino Pietrassyk. All rights reserved.</li>
+        <li>Design: <a href="http://html5up.net/">HTML5 UP</a></li>
+      </ul>
+    </div>
+  </section>
+</body>
+</html>

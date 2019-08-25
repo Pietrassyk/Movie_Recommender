@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Your Recommendations</title>
+	<meta charset="utf-8">
+	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="../static/css/style.css">
+	<link rel="stylesheet" href="../static/css/skel-noscript.css">
+  <!--[if lte IE 8]>
+<script src="../static/css/ie/html5shiv.js"></script>
+<![endif]-->
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/jquery.poptrox-2.2.js"></script>
+<script src="../static/js/skel.min.js"></script>
+<script src="../static/js/init.js"></script>
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="../static/css/ie/v8.css">
+<![endif]-->
+</head>
+<body>
+	<section id="header">
+		<header>
+			<h1>Your Recommmendations</h1>
+		</header>
+		<footer> <a href="#first" class="button style2 scrolly">Explore</a> </footer>
+	</section>
+	<div id="first">
+	</div>
+	{% for key, title in cont.items() %}
+	<article  class="container box style1 right" > <a href="#" class="image full"><img src="{{cover_urls[key]}}" alt="" width="840" height="600"></a>
+		<div class="inner">
+			<header>
+				<h2>{{title}}</h2>
+			</header>
+			<p> </p>
+			<p> </p>
+		</div>
+	</article>
+	{% endfor %}
+	<section id="footer">
+		<ul class="icons">
+      <!--<li><a href="https://medium.com/@pietrassyk" class="icon icon-medium solo"><span>Medium</span></a></li>
+      	<li><a href="mailto:pietrassyk@gmail.com" class="icon icon-gmail solo"><span>Gmail</span></a></li>-->
+      	<li><a href="https://github.com/pietrassyk/" target="_blank" class="icon icon-github solo"><span>Github</span></a></li>
+      	<li><a href="https://www.linkedin.com/in/tinopietrassyk/" target="_blank" class="icon icon-linkedin solo"><span>LinkedIn</span></a></li>
+      </ul>
+      <div class="copyright">
+      	<ul class="menu">
+      		<li>&copy; Tino Pietrassyk. All rights reserved.</li>
+      		<li>Design: <a href="http://html5up.net/">HTML5 UP</a></li>
+      	</ul>
+      </div>
+  </section>
+</body>
+</html>

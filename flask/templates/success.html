@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Audio Summary</title>
+  <meta charset="utf-8">
+  <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,300italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="../static/css/skel-noscript.css">
+  <!--[if lte IE 8]>
+<script src="../static/css/ie/html5shiv.js"></script>
+<![endif]-->
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/jquery.poptrox-2.2.js"></script>
+<script src="../static/js/skel.min.js"></script>
+<script src="../static/js/init.js"></script>
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="../static/css/ie/v8.css">
+<![endif]-->
+</head>
+<body>
+    <section id="header">
+        <header>
+            <h1>Summary</h1>
+            <br>
+            <h2>{{file_name[:-4]}}</h2>  
+        </header>
+        <footer> <a href="#first" class="button style2 scrolly">Explore</a> </footer>
+        </section>
+        <article id="first" class="container box style3" style =  "background: rgba(255,255,255,0.2); padding: 0; height: 600px;">
+    <p align="center"><img src="{{image}}" width="840" height="600"></p>
+</article>
+        <article  class="container box style1 right" > <a href="#" class="image full"><img src="../static/images/pic01.jpg" alt=""></a>
+            <div class="inner">
+                <header>
+                  <h2>Bullet 1</h2>
+                </header>
+                <p>{{bullets[0]}}</p>
+            </div>
+        </article>
+
+        <article class="container box style1 left"> <a href="#" class="image full"><img src="../static/images/pic02.jpg" alt=""></a>
+          <div class="inner">
+            <header>
+              <h2>Bullet 2</h2>
+          </header>
+          <p>{{bullets[1]}}</p>
+      </div>
+  </article>
+
+  <article class="container box style1 right"> <a href="#" class="image full"><img src="../static/images/fulls/06.jpg" alt=""></a>
+      <div class="inner">
+        <header>
+          <h2>Bullet 3</h2>
+        </header>
+        <p>{{bullets[2]}}</p>
+    </div>
+</article>
+
+
+ <article class = "container box style3" style = "background: rgba(255,255,255,0.2); padding: 0">
+
+            <header><h2>Your Audio Recording</h2></header>
+            <div class="inner">
+                <br>
+            <p align="center"><audio controls>
+                <source src="{{audio_path}}" type="audio/wav">
+                    Your browser does not support the audio element.
+                </audio></p>
+            </div>
+        </article>
+
+<article class="container box style3">
+   <header><h2>Protocol</h2>
+    <br></br>
+</header> 
+<p> {{transcription}} </p>
+</article>
+</body>
+</html>
