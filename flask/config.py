@@ -1,7 +1,7 @@
 class Config:
 	num_ratings = 5
 	default_user_id = 100011
-	install_path = "/Users/pietrassyk/Dropbox/Coding/Projects/Movie_Recommender"
+	install_path = "/home/ubuntu/Movie_Recommender"
 	spark_path = install_path + "/spark/spark-2.4.3-bin-hadoop2.7"
 	spark_app_path = install_path + "/flask/scripts/Spark_App_Recommender.py"
 	script_path = install_path + "/flask/scripts"
