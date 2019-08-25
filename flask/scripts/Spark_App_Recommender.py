@@ -7,7 +7,7 @@ from pyspark.sql import SparkSession
 if __name__ == "__main__":
 
     def name_retriever(movie_id,movie_title_df):
-        title = movie_title_df.filter(f"movieId == {movie_id}").collect()[0][1]
+        title = movie_title_df.filter("movieId == {}".format(movie_id)).collect()[0][1]
         return title
     
     def new_user_recs(user_id, new_ratings, rating_df, movie_title_df, num_recs):
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     if len(sys.argv) !=2:
       print("""Usage: full_path/Spark_App_Recommender.py
                        <request_json as string>
-                       """ , file = sys.stderr)
+                       """)
       exit(-1)
 
     spark = SparkSession\
