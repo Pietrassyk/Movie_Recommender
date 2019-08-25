@@ -4,9 +4,9 @@ private.py
 credentials.py
 
 #ignore after initial commit to make customizations possible
-config.py
+flask/scripts/config.py
 
-
+flask/__pycache__/
 # Byte-compiled / optimized / DLL files
 __pycache__/ *.py[cod] *$py.class
 # C extensions
