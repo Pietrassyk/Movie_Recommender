@@ -5,6 +5,7 @@ credentials.py
 
 #ignore after initial commit to make customizations possible
 flask/scripts/config.py
+flask/config.py
 
 flask/__pycache__/
 # Byte-compiled / optimized / DLL files
