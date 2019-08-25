@@ -3,6 +3,9 @@ private/
 private.py
 credentials.py
 
+#ignore after initial commit to make customizations possible
+config.py
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/ *.py[cod] *$py.class
