@@ -15,7 +15,7 @@ def build_request_json(user_id, new_ratings):
                     "num_recommendations" : Config.num_recommendations}
     return json.dumps(request_dict)
 
-@app.route('/Movie', methods = ["GET"])
+@app.route('/', methods = ["GET"])
 def show_movie_specs():
     movieId , title , cover_url = get_movie_from_pool()
     res = make_response(render_template("movie_selection.html", title=title, cover_url = cover_url))
@@ -24,20 +24,20 @@ def show_movie_specs():
     res.set_cookie("curr_movie",movie_json)
     return res
 
-@app.route('/Movie', methods = ["POST"])
+@app.route('/', methods = ["POST"])
 def store_rating():
-    #DEBUG HERE
-    user_id = Config.default_user_id
-    #END
+    #create user_id from IP adress
+    ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
+    user_id = int(ip.replace(".",""))
 
-    res = make_response(redirect("/Movie#rating"))
+    res = make_response(redirect("/#rating"))
     cookie = request.cookies
     ratings = int(cookie.get("rated_movies",0))
 
     resp = request.form["rating"]
     
     if resp.lower()== "n":
-        return redirect("/Movie#rating")
+        return redirect("/#rating")
     else:
         curr_movie = json.loads(cookie.get("curr_movie"))
         new_entry = {ratings : {"userId": user_id, 
@@ -55,6 +55,9 @@ def store_rating():
     res_recommendation = make_response(redirect(url_for("show_recommendations")))
     res_recommendation.set_cookie("temp_json", req_json)
 
+    #delete ratings counter cookie
+    res_recommendation.set_cookie("rated_movies", "", expires = 0)
+
     return res_recommendation
 
 @app.route("/Recommendations", methods = ["GET"])
@@ -62,7 +65,7 @@ def show_recommendations():
     temp_json = request.cookies.get("temp_json")
     spark_path = Config.spark_path
     spark_app = Config.spark_app_path
-    run_spark_app = subprocess.Popen(["sudo","./bin/spark-submit", spark_app , temp_json] , cwd = spark_path, stdout = PIPE)
+    run_spark_app = subprocess.Popen(["./bin/spark-submit", spark_app , temp_json] , cwd = spark_path, stdout = PIPE)
     recommendations_json = json.loads(run_spark_app.stdout.read())
     #DEBUG
     #with open("temp.json","w") as f:
@@ -70,7 +73,9 @@ def show_recommendations():
     #END
     movie_ids = [recommendations_json[key] for key in recommendations_json.keys()]
     cover_urls = dict(zip(recommendations_json.keys(),[get_image_url(id_) for id_ in movie_ids]))
-    return render_template("recommendations.html", cont = recommendations_json , cover_urls = cover_urls)
+    res = make_response(render_template("recommendations.html", cont = recommendations_json , cover_urls = cover_urls))
+    res.set_cookie("temp_json", "", expires = 0)
+    return res
 
 if __name__ == '__main__':
     app.run(host = "0.0.0.0", port = 80,debug = True)
