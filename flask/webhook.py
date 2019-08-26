@@ -15,7 +15,7 @@ def build_request_json(user_id, new_ratings):
                     "num_recommendations" : Config.num_recommendations}
     return json.dumps(request_dict)
 
-@app.route('/Movie', methods = ["GET"])
+@app.route('/', methods = ["GET"])
 def show_movie_specs():
     movieId , title , cover_url = get_movie_from_pool()
     res = make_response(render_template("movie_selection.html", title=title, cover_url = cover_url))
@@ -24,20 +24,20 @@ def show_movie_specs():
     res.set_cookie("curr_movie",movie_json)
     return res
 
-@app.route('/Movie', methods = ["POST"])
+@app.route('/', methods = ["POST"])
 def store_rating():
     #DEBUG HERE
     user_id = Config.default_user_id
     #END
 
-    res = make_response(redirect("/Movie#rating"))
+    res = make_response(redirect("/#rating"))
     cookie = request.cookies
     ratings = int(cookie.get("rated_movies",0))
 
     resp = request.form["rating"]
     
     if resp.lower()== "n":
-        return redirect("/Movie#rating")
+        return redirect("/#rating")
     else:
         curr_movie = json.loads(cookie.get("curr_movie"))
         new_entry = {ratings : {"userId": user_id, 

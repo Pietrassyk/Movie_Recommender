@@ -2,7 +2,7 @@
 private/
 private.py
 credentials.py
-
+flask/nohup.out
 
 # Byte-compiled / optimized / DLL files
 __pycache__/ *.py[cod] *$py.class
