@@ -22,7 +22,7 @@ You can test the model on my <a href="http://movie.pietrassyk.com">website</a>.
 
 If the Server is down you can run the recommender locally.  Just follow the installation guide below.
 
-##Installation
+## Installation
 1. clone this repo onto your machine
 2. Install the following packages using pip or pip3
     ```
@@ -35,13 +35,13 @@ If the Server is down you can run the recommender locally.  Just follow the inst
     * Java 1.8
 4. change the installation path in the ``flask/config.py`` file to the path you cloned this repo.
 
-##Start the Server
+## Start the Server
 1. Navigate to the root folder of this repo in the terminal and run `bash 01_start_webhook.sh`
 <br>Now the flask Server is running.
 
 2. Use the link provided in `/02_Vist_Localhost.webloc` <br>or type in the browser of your choice `0.0.0.0`
 
-##Get Recommendations
+## Get Recommendations
 Since your are a new user to the system you have to provide some initial ratings. Just press the buttons below the
 cover according to your rating.
 <br>If you dont know the movie press the `->`Button.
@@ -49,6 +49,6 @@ cover according to your rating.
 
 <img src="images/how_to_use.gif">
 
-##Grab a drink and enjoy your movie
+## Grab a drink and enjoy your movie
 
 
