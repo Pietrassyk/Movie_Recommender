@@ -1,5 +1,5 @@
 # Movie Recommender
-In this project I built a movie recommendation system based on the **Kaggle movies Data Set** found <a href="">here</a>.
+In this project I built a movie recommendation system based on the **Movielens Dataset** found <a href="https://grouplens.org/datasets/movielens/">here</a>.
 
 My approach is using user based collaborative Filtering method.
 The ratings approximation for unseen movies of a user are derived using pysparks AlternatingLeastSquares (ALS) model.
