@@ -47,7 +47,7 @@ cover according to your rating.
 <br>If you dont know the movie press the `->`Button.
 <br>Once you rated some movies (5 by default) give the system appx. 40 seconds to train the model and load your recommendations.
 
-<img src="images/how_to_use.gif">
+<img src="images/How_to.gif">
 
 ##Grab a drink and enjoy your movie
 
