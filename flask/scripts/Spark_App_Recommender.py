@@ -6,8 +6,6 @@ from pyspark import  SparkConf
 from pyspark.ml.recommendation import ALS
 from pyspark.sql import SparkSession
 
-#build Spark App
-if __name__ == "__main__":
 """This app will train a Spark ALS model and return a number if movie recommendations. To run, call this app pass a json holding the following parameters:
 {
 "user_id" : <int>,
@@ -19,8 +17,10 @@ if __name__ == "__main__":
 "ratings_path" : <absolute path to ratings -> see config>,
 "titles_path" : <absolute path to titles -> see config>,
 "num_recommendations" : <int -> see config>
-}
-"""
+}"""
+
+#build Spark App
+if __name__ == "__main__":
 
     def name_retriever(movie_id,movie_title_df):
         """Fetch movie name from Id

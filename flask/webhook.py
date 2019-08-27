@@ -51,7 +51,7 @@ def store_rating():
 
     #create user_id from IP adress
     ip = request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
-    user_id = int(ip.replace(".",""))
+    user_id = int(ip.replace(".","")[-6:]) #limit ipadress to 6 digits so java can still handle it
     
 
     res = make_response(redirect("/#rating"))
@@ -101,6 +101,15 @@ def show_recommendations():
     spark_path = Config.spark_path
     spark_app = Config.spark_app_path
     
+    ###DEBUG
+    #with open("spark_call.json", "w") as f:
+    #    f.write(json.dumps(temp_json))
+    #f.close()
+    #with open("spark_bash_command.sh", "w") as g:
+    #    g.write("./bin/spark-submit"+ " " + spark_app + " '" + temp_json + "'")
+    #g.close()
+    ###END
+
     #run the actual spark model. This step is crucial and has to be adjusted to the running environment (EC2 or local) 
     run_spark_app = subprocess.Popen(["./bin/spark-submit", spark_app , temp_json] , cwd = spark_path, stdout = PIPE)
     recommendations_json = json.loads(run_spark_app.stdout.read()) #recommendation results
