@@ -24,19 +24,10 @@ If the Server is down you can run the recommender locally.  Just follow the inst
 
 ## Installation
 1. clone this repo onto your machine
-2. Install the following packages using pip or pip3
-    ```
-    pip install flask
-    pip install impdbpy
-    ```
-3. Make sure you also have installed on your machine
-    * python 3
-    * (python 2) if you want to run the stand alone spark version
-    * Java 1.8
-4. change the installation path in the ``flask/config.py`` file to the path you cloned this repo.
+2. Install docker
 
 ## Start the Server
-1. Navigate to the root folder of this repo in the terminal and run `bash 01_start_webhook.sh`
+1. Navigate to the root folder of this repo in the terminal and run `bash 01_start_container.sh`
 <br>Now the flask Server is running.
 
 2. Use the link provided in `/02_Vist_Localhost.webloc` <br>or type in the browser of your choice `0.0.0.0`
