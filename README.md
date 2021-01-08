@@ -23,8 +23,8 @@ You can test the model on my <a href="http://movie.pietrassyk.com">website</a>.
 If the Server is down you can run the recommender locally.  Just follow the installation guide below.
 
 ## Installation
-1. clone this repo onto your machine
-2. Install docker
+1. Clone this repo onto your machine
+2. Install docker (If you haven't already)
 
 ## Start the Server
 1. Navigate to the root folder of this repo in the terminal and run `bash 01_start_container.sh`
