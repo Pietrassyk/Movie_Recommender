@@ -1,0 +1,3 @@
+flask
+pandas
+imdbpy == 6.8

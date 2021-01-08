@@ -1,1 +1,0 @@
-cd flask && python3 webhook.py
