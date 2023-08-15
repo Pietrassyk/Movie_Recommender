@@ -1,28 +1,30 @@
-# import necessary libraries
-import sys
+"""Spark App that holds the recommender"""
 import json
+import logging as log
+import sys
 
-from pyspark import  SparkConf
+from pyspark import SparkConf
 from pyspark.ml.recommendation import ALS
 from pyspark.sql import SparkSession
 
-"""This app will train a Spark ALS model and return a number if movie recommendations. To run, call this app pass a json holding the following parameters:
+"""This app will train a Spark ALS model and return a number of movie recommendations. 
+To run, call this app and pass a json holding the following parameters:
 {
-"user_id" : <int>,
-"new_ratings" : {
-                  <int> : {"userId": <int> , "movieId":<int> , "rating": <int>},
-                  <int> : {"userId": <int> , "movieId":<int> , "rating": <int>},
-                  <...>
-                },
-"ratings_path" : <absolute path to ratings -> see config>,
-"titles_path" : <absolute path to titles -> see config>,
-"num_recommendations" : <int -> see config>
+    "user_id" : <int>,
+    "new_ratings" : {
+                      <int> : {"userId": <int> , "movieId":<int> , "rating": <int>},
+                      <int> : {"userId": <int> , "movieId":<int> , "rating": <int>},
+                      <...>
+                    },
+    "ratings_path" : <absolute path to ratings -> see config>,
+    "titles_path" : <absolute path to titles -> see config>,
+    "num_recommendations" : <int -> see config>
 }"""
 
-#build Spark App
+# Build Spark App
 if __name__ == "__main__":
 
-    def name_retriever(movie_id,movie_title_df):
+    def name_retriever(movie_id: int, movie_title_df) -> str:
         """Fetch movie name from Id
         Params
         --------
@@ -35,8 +37,8 @@ if __name__ == "__main__":
         """
         title = movie_title_df.filter("movieId == {}".format(movie_id)).collect()[0][1]
         return title
-    
-    def new_user_recs(user_id, new_ratings, rating_df, movie_title_df, num_recs):
+  
+    def new_user_recs(user_id: int, new_ratings, rating_df, movie_title_df, num_recs: int):
         """Adds new recommendations to the excisting dataframe then trains the ALS model and returns recommendations
         Params
         --------
@@ -55,13 +57,13 @@ if __name__ == "__main__":
           List of strings with the recommended movie titles
         """
 
-        # turn the new_recommendations list into a spark DataFrame
+        # Turn the new_recommendations list into a spark DataFrame.
         new_rates = spark.createDataFrame(new_ratings)
-        
-        # combine the new ratings df with the rating_df
+
+        # Combine the new ratings df with the rating_df.
         rating_df = rating_df.union(new_rates)
-    
-        # create an ALS model and fit it
+
+        # Create an ALS model and fit it.
         als = ALS(maxIter=5,
                   userCol='userId',
                   itemCol='movieId',
@@ -71,31 +73,35 @@ if __name__ == "__main__":
                   rank=50,
                   regParam=0.01)
         model = als.fit(rating_df)
-        
-        # make recommendations for all users using the recommendForAllUsers method
+
+        # Make recommendations for all users using the recommendForAllUsers method.
         recommendations = model.recommendForAllUsers(num_recs)
         user_recommends = recommendations.filter(recommendations.userId == user_id)
         recs_list = user_recommends.collect()[0]['recommendations']
-        
-        # get recommendations specifically for the new user that has been added to the DataFrame
+
+        # Get recommendations specifically for the new user that has been added to the DataFrame.
         out_list = [name_retriever(row[0], movie_title_df) for row in recs_list]
-        
+
         return out_list
 
-    #check for correct number of arguments
+    # Check for correct number of arguments.
+    # TODO: Move to argparse.
     if len(sys.argv) !=2:
-      print("""Usage: full_path/Spark_App_Recommender.py
+        print("""Usage: full_path/Spark_App_Recommender.py
                        <request_json as string>
                        """)
-      exit(-1)
+        exit(-1)
 
-    #build Session
-    spark = SparkSession\
-            .builder\
-            .appName("Spark_App_Recommender").config("spark.driver.host","localhost")\
-            .getOrCreate()
+    # Build Session.
+    spark = (
+        SparkSession
+        .builder
+        .appName("Spark_App_Recommender")
+        .config("spark.driver.host", "localhost")
+        .getOrCreate()
+    )
 
-    #extract request parameters
+    # Extract request parameters.
     req_json = json.loads(sys.argv[1])
     user_id = int(req_json["user_id"])
 
@@ -108,23 +114,19 @@ if __name__ == "__main__":
     titles_csv_path = req_json["titles_path"]
     num_recs = int(req_json["num_recommendations"])
 
-    # read in the dataset into pyspark DataFrame
-    movie_ratings = spark.read.csv(ratings_csv_path,header = 'true' , inferSchema = 'true')
-    movie_titles = spark.read.csv(titles_csv_path, header = True)
-    
-    #data cleaning
+    # Read in the dataset into pyspark DataFrame.
+    movie_ratings = spark.read.csv(ratings_csv_path, header='true', inferSchema='true')
+    movie_titles = spark.read.csv(titles_csv_path, header=True)
+
+    # Data cleaning.
     try:
-      movie_ratings = movie_ratings.drop("timestamp")
-    except:
-      pass
-    
-    #get recommendations and convert into json
+        movie_ratings = movie_ratings.drop("timestamp")
+    except Exception as err:
+        log.error(err)
+
+    # Get recommendations and convert into json.
     out_list = new_user_recs(user_id, new_ratings, movie_ratings, movie_titles, num_recs)
     app_return = json.dumps(dict(enumerate(out_list)))
 
-    #write results to the command line or subprocess listener
+    # Write results to the command line or subprocess listener
     sys.stdout.write(app_return)
-
-
-    
-
